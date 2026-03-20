@@ -1,0 +1,135 @@
+/* ==========================
+   Contact Hero Section
+========================== */
+.contact-hero {
+  min-height: 100vh;
+  padding-top: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(120deg, #0f172a, #111827);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Optional: floating glowing spots */
+.contact-hero::before,
+.contact-hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(150px);
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.contact-hero::before {
+  width: 400px;
+  height: 400px;
+  background: rgba(255, 44, 116, 0.4);
+  top: 10%;
+  left: 20%;
+}
+
+.contact-hero::after {
+  width: 500px;
+  height: 500px;
+  background: rgba(124, 58, 237, 0.4);
+  top: 60%;
+  left: 70%;
+}
+
+/* Container */
+.contact-container {
+  display: flex;
+  gap: 50px;
+  max-width: 1200px;
+  width: 100%;
+  z-index: 1; /* above glowing spots */
+}
+
+/* Left Info */
+.contact-left {
+  flex: 1;
+  padding-top: 50px;
+}
+
+.contact-left h1 {
+  font-size: 50px;
+  margin-bottom: 20px;
+}
+
+.contact-left p {
+  opacity: 0.7;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.contact-info p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+/* Right Form */
+.contact-right {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  padding: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-form label {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  font-size: 14px;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: rgba(255,255,255,0.7);
+}
+
+.contact-form button {
+  padding: 12px;
+  border-radius: 25px;
+  border: none;
+  background: #534AB7;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.contact-form button:hover {
+  background: #534AB7;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .contact-container {
+    flex-direction: column;
+  }
+
+  .contact-right {
+    width: 100%;
+  }
+}

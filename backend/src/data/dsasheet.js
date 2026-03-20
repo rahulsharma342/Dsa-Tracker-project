@@ -1,0 +1,46 @@
+const dsaSheet = [
+  {
+    title: "Two Sum",
+    link: "https://leetcode.com/problems/two-sum",
+    platform: "LeetCode",
+    difficulty: "Easy",
+    topic: "Array",
+    tags: ["hashmap"],
+    companyTags: ["Amazon", "Google"],
+    articleLink: "",
+    videoLink: "",
+    order: 1,
+  },
+  {
+    title: "Best Time to Buy and Sell Stock",
+    link: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock",
+    platform: "LeetCode",
+    difficulty: "Easy",
+    topic: "Array",
+    tags: ["greedy"],
+    companyTags: ["Amazon"],
+    order: 2,
+  },
+  {
+    title: "Longest Substring Without Repeating Characters",
+    link: "https://leetcode.com/problems/longest-substring-without-repeating-characters",
+    platform: "LeetCode",
+    difficulty: "Medium",
+    topic: "String",
+    tags: ["sliding-window"],
+    companyTags: ["Google"],
+    order: 3,
+  },
+  {
+    title: "Merge Two Sorted Lists",
+    link: "https://leetcode.com/problems/merge-two-sorted-lists",
+    platform: "LeetCode",
+    difficulty: "Easy",
+    topic: "Linked List",
+    tags: ["recursion"],
+    companyTags: ["Microsoft"],
+    order: 4,
+  },
+];
+
+export default dsaSheet;
