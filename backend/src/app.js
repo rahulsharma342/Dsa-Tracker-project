@@ -11,7 +11,6 @@ import progressRoutes from "./routes/progress.routes.js";
 
 const app = express();
 
-// 🔥 SIMPLE & WORKING CORS (for debugging)
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,

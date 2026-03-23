@@ -1,15 +1,24 @@
 import axios from "axios";
 
 const api = axios.create({
-   baseURL: "https://dsa-tracker-project.onrender.com",
-  withCredentials: false,
+  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:3000",
 });
 
-const getApiError = (error, fallbackMessage) => {
-  if (axios.isAxiosError(error)) {
-    return error.response?.data || { message: fallbackMessage };
+api.interceptors.request.use((config) => {
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
+  };
+  const token = getCookie("authToken");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
-  return { message: fallbackMessage };
+  return config;
+});
+
+const getApiError = (error, defaultMessage = "An error occurred") => {
+  return error.response?.data?.message || error.message || defaultMessage;
 };
 
 // 📊 Get full user progress
