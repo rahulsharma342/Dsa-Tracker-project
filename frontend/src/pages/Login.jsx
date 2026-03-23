@@ -28,17 +28,20 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     setError("");
-    try{
+    try {
       console.log("API URL:", import.meta.env.VITE_API_URL);
       await handleLogin(formData);
       navigate("/");
     }
     catch (error) {
+      console.log("Full error:", error);           // ← YEH ADD KAR
+      console.log("Error response:", error?.response?.data);  // ← AUR YEH
+      console.log("Error status:", error?.response?.status);  // ← AUR YEH
       setError(error?.message || "Login failed. Please try again.");
     }
     finally {
-    setLoading(false);
-  };
+      setLoading(false);
+    }
   };
   // return (
   //   <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
