@@ -14,7 +14,7 @@ const app = express();
 // 🔥 SIMPLE & WORKING CORS (for debugging)
 app.use(
   cors({
-    origin: true, // allow all origins
+    origin: process.env.FRONTEND_URL,
     credentials: true,
   })
 );
