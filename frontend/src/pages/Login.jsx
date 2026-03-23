@@ -114,10 +114,10 @@ const Login = () => {
   //   </div>
   // );
 return (
-  <div className="min-h-screen flex items-center justify-center bg-black px-4">
+  <div className="min-h-screen flex items-center justify-center bg-black px-4 pt-20">
 
     {/* Card */}
-    <div className="w-full max-w-md bg-[#111111] border border-gray-800 shadow-xl rounded-2xl p-6 sm:p-8">
+    <div className="w-full max-w-md bg-[#111111] border border-gray-800 shadow-xl rounded-2xl p-9 sm:p-8">
 
       {/* Title */}
       <h2 className="text-2xl sm:text-3xl font-bold text-center text-white mb-2">

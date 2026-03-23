@@ -64,7 +64,66 @@ const Navbar = () => {
 
         {/* ── Logo ── */}
         <div className="logo">
-          <Link to="/" onClick={closeMenu}>DSA Tracker 🚀</Link>
+          <Link to="/" onClick={closeMenu}>
+            <svg
+              width="180"
+              height="36"
+              viewBox="0 0 180 36"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ display: "block" }}
+            >
+              {/* Icon background */}
+              <rect x="0" y="0" width="36" height="36" rx="10" fill="#0c1a12" />
+
+              {/* Tree edges */}
+              <line x1="18" y1="10" x2="11" y2="22" stroke="#374151" strokeWidth="1.5" />
+              <line x1="18" y1="10" x2="25" y2="22" stroke="#374151" strokeWidth="1.5" />
+              <line x1="11" y1="22" x2="8"  y2="30" stroke="#374151" strokeWidth="1.5" />
+              <line x1="25" y1="22" x2="28" y2="30" stroke="#374151" strokeWidth="1.5" />
+
+              {/* Root node */}
+              <circle cx="18" cy="10" r="4.5" fill="#4ade80" />
+
+              {/* Left child */}
+              <circle cx="11" cy="22" r="4" fill="#6366f1" />
+
+              {/* Right child */}
+              <circle cx="25" cy="22" r="4" fill="#6366f1" />
+
+              {/* Left leaf */}
+              <circle cx="8"  cy="30" r="2.8" fill="#818cf8" />
+
+              {/* Right leaf */}
+              <circle cx="28" cy="30" r="2.8" fill="#818cf8" />
+
+              {/* Wordmark — DSA in white */}
+              <text
+                x="46"
+                y="33"
+                fontFamily="'Sora', 'Segoe UI', sans-serif"
+                fontSize="25"
+                fontWeight="700"
+                fill="#ffffff"
+                letterSpacing="-0.5"
+              >
+                SheryDSA
+              </text>
+
+              {/* Wordmark — Tracker in green */}
+              <text
+                x="46"
+                y="13"
+                fontFamily="'Sora', 'Segoe UI', sans-serif"
+                fontSize="15"
+                fontWeight="900"
+                fill="#4ade80"
+                letterSpacing="-0.3"
+              >
+                Tracker
+              </text>
+            </svg>
+          </Link>
         </div>
 
         {/* ── Nav Links (desktop centered + mobile slide-down) ── */}
