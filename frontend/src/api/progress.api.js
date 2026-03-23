@@ -53,7 +53,7 @@ export const getTopicWiseProgress = async () => {
   } catch (error) {
     throw getApiError(
       error,
-      "Failed to fetch topic progress. Please try again."
+      "Failed to fetch topic progress. Please try again.",
     );
   }
 };
@@ -66,7 +66,7 @@ export const getDailyProgress = async () => {
   } catch (error) {
     throw getApiError(
       error,
-      "Failed to fetch daily progress. Please try again."
+      "Failed to fetch daily progress. Please try again.",
     );
   }
 };

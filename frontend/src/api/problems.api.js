@@ -32,11 +32,17 @@ export const fetchProblemById = async (id) => {
 
 export const solveProblem = async (problemId, solution) => {
   try {
-    const response = await api.post(`/api/problems/${problemId}/solve`, { solution });
+    const response = await api.post(`/api/problems/${problemId}/solve`, {
+      solution,
+    });
     return response.data;
   } catch (error) {
-    throw getApiError(error, `Unable to submit solution for problem ${problemId}.`);
-  }};
+    throw getApiError(
+      error,
+      `Unable to submit solution for problem ${problemId}.`,
+    );
+  }
+};
 
 export const toggleProblemBookmark = async (problemId) => {
   try {

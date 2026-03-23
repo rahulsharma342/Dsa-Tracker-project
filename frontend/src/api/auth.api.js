@@ -31,12 +31,11 @@ export const loginUser = async ({ email, password }) => {
     const response = await api.post("/api/auth/login", { email, password });
     return response.data;
   } catch (error) {
-  console.log(error); // 👈 ADD THIS
-  throw getApiError(
-    error,
-    "Login failed. Please check your connection and try again."
-  );
-}
+    throw getApiError(
+      error,
+      "Login failed. Please check your connection and try again.",
+    );
+  }
 };
 
 export const logoutUser = async () => {
