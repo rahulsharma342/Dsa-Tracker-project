@@ -1,34 +1,24 @@
 import dotenv from "dotenv";
 dotenv.config();
+
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+
 import authRoutes from "./routes/auth.routes.js";
 import problemRoutes from "./routes/problem.routes.js";
 import progressRoutes from "./routes/progress.routes.js";
 
 const app = express();
 
-const allowedOrigins = [process.env.FRONTEND_URL];
-const isLocalhostOrigin = (origin = "") =>
-  /^http:\/\/localhost:\d+$/.test(origin);
-
+// 🔥 SIMPLE & WORKING CORS (for debugging)
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (
-        !origin ||
-        allowedOrigins.includes(origin) ||
-        isLocalhostOrigin(origin)
-      ) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: true, // allow all origins
     credentials: true,
-  }),
+  })
 );
+
 app.use(express.json());
 app.use(cookieParser());
 
