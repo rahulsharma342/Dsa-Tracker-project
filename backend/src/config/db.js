@@ -17,7 +17,20 @@ async function connectDB() {
           .replace(/[^\w-]+/g, ""),
       }));
 
-      await Problem.insertMany(seedProblems);
+      // Keep the first item for each slug so duplicate titles in seed data don't crash startup.
+      const uniqueSeedProblems = Array.from(
+        new Map(
+          seedProblems.map((problem) => [problem.slug, problem]),
+        ).values(),
+      );
+
+      if (uniqueSeedProblems.length !== seedProblems.length) {
+        console.warn(
+          `Skipped ${seedProblems.length - uniqueSeedProblems.length} duplicate problem slug(s) while seeding`,
+        );
+      }
+
+      await Problem.insertMany(uniqueSeedProblems);
       console.log("DSA Sheet Imported");
     }
   } catch (error) {

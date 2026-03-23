@@ -1,43 +1,57 @@
-import axios from 'axios';
+import axios from "axios";
 
-const api=axios.create({
-    baseURL:"http://localhost:3000",
-    withCredentials: true,
+const api = axios.create({
+  baseURL: "http://localhost:3000",
+  withCredentials: true,
 });
 
-export const registerUser=async({name,email,password})=>{
-    try {
-        const response=await api.post('/api/auth/register',{name,email,password});
-        return response.data;
-    } catch (error){
-        throw error.response?.data || { message: "Registration failed. Please try again." };
-    }
+const getApiError = (error, fallbackMessage) => {
+  if (axios.isAxiosError(error)) {
+    return error.response?.data || { message: fallbackMessage };
+  }
+
+  return { message: fallbackMessage };
 };
 
-export const loginUser=async({email,password})=>{
-    try {
-        const response=await api.post('/api/auth/login',{email,password});
-        return response.data;
-    } catch (error){
-        throw error.response.data;
-    }
+export const registerUser = async ({ name, email, password }) => {
+  try {
+    const response = await api.post("/api/auth/register", {
+      name,
+      email,
+      password,
+    });
+    return response.data;
+  } catch (error) {
+    throw getApiError(error, "Registration failed. Please try again.");
+  }
 };
 
-
-export const logoutUser=async()=>{
-    try {
-        const response=await api.post('/api/auth/logout');
-        return response.data;
-    } catch (error){
-        throw error.response.data;
-    }
+export const loginUser = async ({ email, password }) => {
+  try {
+    const response = await api.post("/api/auth/login", { email, password });
+    return response.data;
+  } catch (error) {
+    throw getApiError(
+      error,
+      "Login failed. Please check your connection and try again.",
+    );
+  }
 };
 
-export const getCurrentUser=async()=>{
-    try {
-        const response=await api.get('/api/auth/get-me');
-        return response.data;
-    } catch (error){
-        throw error.response.data;
-    }
+export const logoutUser = async () => {
+  try {
+    const response = await api.post("/api/auth/logout");
+    return response.data;
+  } catch (error) {
+    throw getApiError(error, "Logout failed. Please try again.");
+  }
+};
+
+export const getCurrentUser = async () => {
+  try {
+    const response = await api.get("/api/auth/get-me");
+    return response.data;
+  } catch (error) {
+    throw getApiError(error, "Unable to fetch current user.");
+  }
 };

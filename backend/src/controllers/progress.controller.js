@@ -60,9 +60,16 @@ export const updateProgress = async (req, res) => {
       progress.timeSpent += timeSpent || 0;
       progress.lastAttemptedAt = new Date();
 
+      // Handle status change
       if (status === "solved" && progress.status !== "solved") {
         progress.status = "solved";
         progress.solvedAt = new Date();
+      } else if (status === "unsolved" && progress.status === "solved") {
+        // Allow marking as unsolved
+        progress.status = "unsolved";
+        progress.solvedAt = null;
+      } else if (status === "unsolved") {
+        progress.status = "unsolved";
       }
 
       await progress.save();

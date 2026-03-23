@@ -147,15 +147,29 @@ export const markProblemSolved = async (req, res) => {
 
     // ✅ Check already solved
     const alreadySolved = user.solvedProblems.some(
-      (id) => id.toString() === problemId,
+      (id) => id.toString() === problemId
     );
 
-    // 🔥 USER MODEL UPDATE
-    if (!alreadySolved) {
+    let progress;
+
+    if (alreadySolved) {
+      // ❌ UNSOLVE (remove from user)
+      user.solvedProblems = user.solvedProblems.filter(
+        (id) => id.toString() !== problemId
+      );
+
+      user.totalSolved = Math.max(0, user.totalSolved - 1);
+
+      // ❌ Remove from Progress collection
+      await Progress.deleteOne({ user: userId, problem: problemId });
+
+      progress = null;
+    } else {
+      // ✅ SOLVE (add to user)
       user.solvedProblems.push(problemId);
       user.totalSolved += 1;
 
-      // 🔥 Streak Logic (fixed)
+      // 🔥 Streak Logic
       const today = new Date().toDateString();
       const lastDate = user.lastSolvedDate
         ? new Date(user.lastSolvedDate).toDateString()
@@ -174,33 +188,38 @@ export const markProblemSolved = async (req, res) => {
         user.lastSolvedDate = new Date();
       }
 
-      await user.save();
+      // ✅ Create / Update Progress
+      progress = await Progress.findOneAndUpdate(
+        { user: userId, problem: problemId },
+        {
+          $set: {
+            status: "solved",
+            difficulty: problem.difficulty,
+            topic: problem.topic,
+            solvedAt: new Date(),
+            lastAttemptedAt: new Date(),
+          },
+          $inc: { attempts: 1 },
+        },
+        {
+          upsert: true,
+          returnDocument: "after",
+          setDefaultsOnInsert: true,
+        }
+      );
     }
 
-    // 🔥 PROGRESS MODEL UPDATE (fixed)
-    const progress = await Progress.findOneAndUpdate(
-      { user: userId, problem: problemId },
-      {
-        $set: {
-          status: "solved",
-          difficulty: problem.difficulty,
-          topic: problem.topic,
-          solvedAt: new Date(),
-          lastAttemptedAt: new Date(),
-        },
-        $inc: { attempts: 1 },
-      },
-      {
-        upsert: true,
-        returnDocument: "after",
-        setDefaultsOnInsert: true,
-      },
-    );
+    // 💾 Save user
+    await user.save();
 
+    // 📤 Response
     res.status(200).json({
       success: true,
-      message: "Problem marked as solved",
-      progress, // 🔥 return for debugging / frontend
+      message: alreadySolved
+        ? "Problem marked as unsolved"
+        : "Problem marked as solved",
+      solved: !alreadySolved, // 🔥 frontend ke liye important
+      progress,
     });
   } catch (error) {
     res.status(500).json({
