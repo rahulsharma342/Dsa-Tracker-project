@@ -13,6 +13,7 @@ const Login = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  
 
   // 🔄 handle input
   const handleChange = (e) => {
@@ -28,6 +29,7 @@ const Login = () => {
     setLoading(true);
     setError("");
     try{
+      console.log("API URL:", import.meta.env.VITE_API_URL);
       await handleLogin(formData);
       navigate("/");
     }
